@@ -1,3 +1,6 @@
-print("Hola Mundo")
+Nombre = "Irwinng"
 
-2+2
+print("Mi nombre es:", Nombre)
+
+
+
