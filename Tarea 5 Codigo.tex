@@ -1,0 +1,103 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Técnicas de Agrupamiento aplicado a analizar la siniestralidad de una aseguradora }
+\author{Irwinng Cabrera Rodríguez}
+\date{Noviembre 2025}
+
+\begin{document}
+\maketitle
+
+\section{Introducción}
+
+El análisis de agrupamiento también conocido como \textit{clustering} es una técnica de aprendizaje no supervisado que se utiliza para descubrir grupos o patrones ocultos dentro de un conjunto de datos. El propósito del análisis de agrupamiento es encontrar patrones naturales en los datos, resumir grandes volúmenes de información y identificar segmentos, perfiles o comportamientos similares.
+
+Para este trabajo se analiza el comportamiento del Grupo GZ que cuenta con 38 observaciones, las cuales son variables numéricas que describen el comportamiento de la grupo analizar.
+
+Para este análisis se aplicaran metodología como $K$-Medias para la determinación del número de grupos.
+
+\section{Metodología}
+
+El conjunto de datos se compone de variables categóricas y numéricas que describen las caracteríscticas de la cuenta GZ.
+
+Los datos los trabajamos con el programa \texttt{Python} con la función \texttt{StandardScaler}, después, se trabaja con el algoritmo OPTICS (agrupamiento jerárquico).
+
+\subsection{OPTICS (agrupamiento jerárquico)}
+
+OPTICS es una extensión del algoritmo DBSCAN, por lo cual, OPTICS genera una estructura jerárquica de clústeres, donde puedes ver cómo los grupos se forman y se dividen al variar la densidad.
+
+\textbf{Ventajas}
+\begin{enumerate}
+\item Detecta clústeres de distinta densidad (DBSCAN no puede).
+\item Identifica ruido y puntos atípicos automáticamente (label = -1).
+\item Produce una estructura jerárquica de clústeres
+\end{enumerate}
+
+\textbf{Desventajas}
+\begin{enumerate}
+\item Ds más lento que $K$-Medias o DBSCAN
+\item Más difícil de interpretar
+\end{enumerate}
+
+\section{Resultados}
+
+\begin{figure}
+    \centering
+   \includegraphics[width=0.95\textwidth]{imgs/alcance_ordenado.png}
+    \caption{Gráfico de alcance ordenado - OPTICS}
+    \label{fig:alcance_ordenado}
+\end{figure}
+
+\subsection{Gráfica de distancia de alcance}
+
+Como se ve en la figura \ref{fig:alcance_ordenado} (p. \pageref{fig:alcance_ordenado}).
+
+En la Gráfica de distancia de alcance se puede observar una gran cantidad de puntos están muy cerca entre sí, formando un clúster denso y bien definido.
+
+La elevación gradual de la curva muestra una transición hacia regiones cada vez menos densas, posterior a lo observado, a forma general No presenta múltiples valles profundos, esto se define, que observa un un clúster dominante principal y largo.
+
+\subsection{Método del codo}
+
+Como se ve en la figura \ref{fig:metodo_codo} (p. \pageref{fig:metodo_codo}).
+
+\begin{figure}
+    \centering
+   \includegraphics[width=0.95\textwidth]{imgs/Metodo_Codo.png}
+    \caption{Método del codo para elegir el número de grupos en el algoritmo de $K$-medias.}
+    \label{fig:metodo_codo}
+\end{figure}
+
+La gráfica nos indica una disminución de la inercia conforme aumenta el número de clústeres, debido a que una mayor partición de los datos permite que los puntos se agrupen en regiones más homogéneas y, por lo tanto, reduzcan su distancia al centroide asignado.
+
+El Método del Codo indica que el número óptimo de clústeres para el conjunto de datos analizado se encuentra en el rango de 4 a 5.
+
+\subsection{Visualización t-SNE}
+
+Como se ve en la figura \ref{fig:Agrupacion_t-sen} (p. \pageref{fig:Agrupacion_t-sen}).
+
+
+La gráfica t-SNE muestra una dispersión amplia de puntos, esta dispersión no implica necesariamente la presencia de clústeres, por lo tanto, la ausencia de múltiples clústeres sugiere que el conjunto de datos presenta una distribución continua y con densidad separada.
+
+\begin{figure}
+    \centering
+   \includegraphics[width=0.95\textwidth]{imgs/Agrupacion_t-sen.png}
+    \caption{Agrupacion detectadas por Optics visualizados con t-sen.}
+    \label{fig:Agrupacion_t-sen}
+\end{figure}
+
+\section{Conclusión}
+Como se puede notar, los datos analizar solo con tienen 38 observaciones, las cuales pueden ser insuficientes para los análisis realizados, el conjunto de gráficas obtenidas durante el análisis de agrupamiento permite concluir que los datos no presentan una estructura de agrupamiento claramente definida, por consiguiente, el conjunto de datos analizado carece de particiones naturales o clústeres definidos, mostrando más bien un comportamiento continuo.
+
+\end{document}
